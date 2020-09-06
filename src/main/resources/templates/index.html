@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Simpllink - Home</title>
+  <!-- Icon created by https://freeicons.io/profile/714 from www.freeicons.io -->
+  <link rel="icon" type="imagem/png" th:href="@{/img/icon.png}"/>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script data-ad-client="ca-pub-3100181575777916" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body>
+  <nav class="indigo darken-3" role="navigation" id="navbar">
+    <div class="nav-wrapper container">
+      <a th:href="@{/}" class="brand-logo">
+        <!-- Icon created by https://freeicons.io/profile/714 from www.freeicons.io -->
+        <img class="logo-img tooltipped" data-position="bottom" data-tooltip="Home" th:src="@{/img/icon.png}">
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li><a th:href="@{/contact}">Contact</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/contact}">Contact</a></li>
+      </ul>
+      <a th:href="@{/}" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h3 class="header center">Simpllink</h3>
+      <div class="row center">
+        <h5 class="header col s12 light">Easy and fast way to shorten your links.</h5>
+      </div>
+      <div class="row center">
+        <div class="row" th:if="${unsuccessful} != null">
+          <span class="unsuccessful-span col s8 offset-s2" th:text="${unsuccessful}"></span>
+        </div>
+        <div th:if="${success} != null">
+          <div class="row">
+            <div class="input-field col s8 offset-s2" th:object="${link}">
+              <input th:field="*{shortedLink}" id="inputTest" type="text" class="validate center">
+              <label>Your shortened link</label>
+            </div>
+            <span class="success-span col s8 offset-s2" th:text="${success}"></span>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <a class="btn-floating btn-large tooltipped waves-effect waves-light black" data-position="top" data-tooltip="Copy" onclick="copiarTexto()"><i class="material-icons">content_copy</i></a>
+            </div>
+          </div>
+        </div>
+        <div class="row" th:if="${valid_link} != null">
+          <span class="success-span col s8 offset-s2" th:text="${valid_link}"></span>
+          <div class="input-field col s12" th:object="${validLink}">
+            <input disabled type="text" class="validate center" th:field="*{validLink}">
+            <label class="active">Verified link</label>
+          </div>
+        </div>
+        <div class="row" th:if="${invalid_link} != null">
+          <span class="unsuccessful-span col s8 offset-s2" th:text="${invalid_link}"></span>
+          <div class="input-field col s12" th:object="${validLink}">
+            <input disabled type="text" class="validate center" th:field="*{validLink}">
+            <label class="active">Verified link</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m12">
+            <div class="card-panel">
+              <div class="row">
+                <span class="col s12 title">Here you can shorten your long link with a random link</span>
+              </div>
+              <div class="row">
+                <form th:action="@{/random}" th:object="${linkDto}" method="post">
+                  <div class="input-field col s12">
+                    <input required placeholder="Paste your link here" id="link" type="text" class="validate center" th:field="*{longLink}">
+                    <label class="active">Your link</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <select th:field="*{days}" required>
+                      <option th:each="amountDays : ${amountDays}" th:value="${amountDays}" th:text="${amountDays.amount}"></option>
+                    </select>
+                    <label>Duration</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <button class="waves-effect waves-light btn black" type="submit"><i class="material-icons right">send</i>shorten</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m12">
+            <div class="card-panel">
+              <div class="row">
+                <span class="col s12 title">Here you can shorten your long link with a link of your choice</span>
+              </div>
+              <div class="row">
+                <form th:action="@{/custom}" th:object="${customLinkDto}" method="post">
+                  <div class="input-field col s12">
+                    <input required placeholder="Paste your link here" id="link2" type="text" class="validate center" th:field="*{longLink}">
+                    <label class="active">Your link</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input required placeholder="Enter a shortened link that you want to use with 10 characters" id="sht-choice" minlength="10" maxlength="10" type="text" class="validate center" th:field="*{customShortedLink}">
+                    <label class="active">Choose your shortened link</label>
+                    <span class="helper-text" data-error="Incorrect, the shortened link must be 10 characters long" data-success="Correct short link"></span>
+                    <span th:if="${try_again_message} != null" class="unsuccessful-span col s8 offset-s2" th:text="${try_again_message}"></span>
+                  </div>
+                  <div class="input-field col s12">
+                    <select th:field="*{days}" required>
+                      <option th:each="amountDays : ${amountDays}" th:value="${amountDays}" th:text="${amountDays.amount}"></option>
+                    </select>
+                    <label>Duration</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <button class="waves-effect waves-light btn black" type="submit"><i class="material-icons right">send</i>shorten</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m12">
+            <div class="card-panel">
+              <div class="row">
+                <span class="col s12 title">Here you can check if a link is valid</span>
+              </div>
+              <div class="row">
+                <form th:action="@{/validator}" th:object="${validLink}" method="post">
+                  <div class="input-field col s12">
+                    <input required placeholder="Insert the link here to check if it is valid" minlength="1" type="text" class="validate center" th:field="*{validLink}">
+                    <label class="active">Link</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <button class="waves-effect waves-light btn black" type="submit"><i class="material-icons right">send</i>Validate</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center">
+        © 2020
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script th:src="@{/js/materialize.js}"></script>
+  <script th:src="@{/js/init.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+
+  </body>
+</html>

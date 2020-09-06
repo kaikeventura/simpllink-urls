@@ -1,0 +1,83 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+.input-field label:not(.label-icon).active {
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
+
+.input-field.col label {
+    left: 0;
+}
+
+.input-field label {
+    text-align: center;
+    width: 100%;
+}
+
+#navbar {
+    background-image: linear-gradient(to bottom right, #ce93d8, #6a1b9a);
+}
+
+#index-banner {
+    margin-top: -2% !important;
+}
+
+h3 {
+    color: #1a237e;
+}
+
+.card-error {
+    background-image: linear-gradient(to bottom right, #ce93d8, #6a1b9a);
+}
+
+#index-banner {
+    margin-top: -2% !important;
+}
+
+h2 {
+    color: #1a237e;
+}
+
+.success-span {
+    color: green;
+    background: #C5FCC6;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+.unsuccessful-span {
+    color: red;
+    background: #FFB1B1;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+.logo-img {
+    max-height: 64px!important;
+    padding: 15px 0!important;
+}
+
+.title {
+    color: #1a237e;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+footer {
+    padding-top: 0px !important;
+    background-image: linear-gradient(to bottom right, #ce93d8, #6a1b9a);
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Simpllink - Contact</title>
+  <!-- Icon created by https://freeicons.io/profile/714 from www.freeicons.io -->
+  <link rel="icon" type="imagem/png" th:href="@{/img/icon.png}"/>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script data-ad-client="ca-pub-3100181575777916" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body>
+  <nav class="indigo darken-3" role="navigation" id="navbar">
+    <div class="nav-wrapper container">
+      <a th:href="@{/}" class="brand-logo">
+        <!-- Icon created by https://freeicons.io/profile/714 from www.freeicons.io -->
+        <img class="logo-img tooltipped" data-position="bottom" data-tooltip="Home" th:src="@{/img/icon.png}">
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li><a th:href="@{/contact}">Contact</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/contact}">Contact</a></li>
+      </ul>
+      <a th:href="@{/}" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h3 class="header center">Contact</h3>
+      <div class="row center">
+        <div class="row">
+          <form class="col s8 offset-s2" th:action="@{/contact}" th:object="${messageDto}" method="post">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="name" type="text" class="validate" th:field="*{name}" required minlength="1" maxlength="40">
+                <label for="name">Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate" th:field="*{email}" required maxlength="40">
+                <label for="email">E-mail</label>
+                <span class="helper-text" data-error="invalid e-mail" data-success="valid e-mail"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="textarea2" class="materialize-textarea" data-length="240" th:field="*{message}" maxlength="240" required></textarea>
+                <label for="textarea2">Message</label>
+              </div>
+              <span th:if="${success} != null" class="success-span col s12" th:text="${success}"></span>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn-floating btn-large tooltipped waves-effect waves-light black" data-position="top" data-tooltip="Send" type="submit"><i class="material-icons">play_arrow</i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script th:src="@{/js/script.js}"></script>
+
+  </body>
+</html>
